@@ -1,0 +1,35 @@
+<style>
+    a:link, a:visited {
+  background-color:blue;
+  color:#87a5ad;
+  padding: 14px 25px;
+  text-align: center;
+  text-decoration:none;
+  display: inline-block;
+}
+
+a:hover, a:active {
+  background-color:#87a5ad;
+  color:blue;
+}
+    .tbar {
+  background-color:#87a5ad;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px; 
+  
+    .tbar a {
+  margin-right:10px;
+  
+    }
+    .WorkyWorky {
+  color:blue;
+  font-family:impact;
+  text-size:20px;
+    .user {
+      
+    }
+    
+    }
+</style>
