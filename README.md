@@ -1,6 +1,6 @@
-Preview page for AllergenCam: Using artifical intelegence to scan food
+Preview page for AllergenCam: Using artifical intelegence to scan food<br>
 
-ALLERGENCAM BRAND COLORS:
-Orange: #ff7700
-Blue: #00aaff
-Font: Comfortaa Designed by Johan Aakerlund https://fonts.google.com/specimen/Comfortaa?preview.script=Latn
+ALLERGENCAM BRAND COLORS:<br>
+Primary Blue: #00aaff<br>
+Secondary Orange: #ff7700<br>
+Font: Comfortaa Designed by Johan Aakerlund https://fonts.google.com/specimen/Comfortaa?preview.script=Latn<br>
