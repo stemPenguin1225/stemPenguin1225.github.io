@@ -1,35 +1,127 @@
-<style>
-    a:link, a:visited {
-  background-color:blue;
-  color:#87a5ad;
-  padding: 14px 25px;
-  text-align: center;
-  text-decoration:none;
-  display: inline-block;
-}
+/* 1. Basic Setup */
+        body {
+            margin: 0;
+            font-family: Comfortaa, Arial, Helvetica, sans-serif;
+        }
 
-a:hover, a:active {
-  background-color:#87a5ad;
-  color:blue;
-}
-    .tbar {
-  background-color:#87a5ad;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px; 
-  
-    .tbar a {
-  margin-right:10px;
-  
-    }
-    .WorkyWorky {
-  color:blue;
-  font-family:impact;
-  text-size:20px;
-    .user {
-      
-    }
-    
-    }
-</style>
+        /* 2. Topbar Container */
+        .topnav {
+            overflow: hidden;
+            background-color: white;
+            position: sticky; /* Keeps it at the top */
+            top: 10px;
+            z-index: 1000;
+            display: flex;
+            align-items: center;
+            padding: 0 20px;
+            margin: 10px 10px 0 10px;
+            border-radius: 10px;
+            border: solid;
+            border-width: 0.5px;
+            border-color: darkgrey;
+            box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1), -2px 0 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 3. Scalable Logo */
+        .logo-container {
+            display: flex;
+            align-items: center;
+            padding: 10px 0;
+        }
+
+        .logo-container a {
+            padding: 0;
+            background: none;
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-container a:hover {
+            background: none;
+        }
+
+        /* 4. Navigation Links */
+        .nav-links {
+            display: flex;
+            margin-left: auto;
+            gap: 15px;
+        }
+
+        .nav-links a {
+            background-color: #00aaff;
+            color: black;
+            padding: 14px 25px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            border-radius: 10px;
+            font-family: Comfortaa;
+            transition: background-color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            background-color: #ff7700;
+        }   
+
+        /* 5. Mobile Icon (Hidden by default) */
+        .topnav .icon {
+            display: none;
+            color: white;
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* 7. Footer */
+        footer {
+            background-color: white;
+            border: solid 0.5px darkgrey;
+            border-radius: 10px;
+            margin: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1), -2px 0 4px rgba(0, 0, 0, 0.1);
+        }
+
+        /* 6. Responsive Rules */
+        @media screen and (max-width: 600px) {
+            .topnav {
+                flex-direction: column;
+                align-items: flex-start;
+                padding: 0;
+            }
+
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                width: 100%;
+                gap: 10px;
+                padding: 10px 0;
+            }
+
+            .nav-links.responsive {
+                display: flex; /* Show links when toggled */
+            }
+
+            .topnav a {
+                width: 100%;
+                text-align: left;
+                box-sizing: border-box;
+            }
+
+            .logo-container {
+                padding: 10px 20px;
+            }
+
+            .topnav .icon {
+                display: block;
+                position: absolute;
+                right: 20px;
+                top: 20px; /* Adjust based on logo height */
+            }
+            .footer {
+                text-align: center;
+                padding: 3px;
+                background-color: rgb(233, 122, 131);
+                color: white;
+            }
+        }
