@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap" rel="stylesheet">
+    <style>
+        body { margin: 20px; font-family: Comfortaa, Arial, sans-serif; }
+        input[type=submit], input[type=file] {
+            border: 1px solid black;
+            padding: 16px 32px;
+            cursor: pointer;
+            border-radius: 12px;
+            background-color: #00aaff;
+            margin: 10px 0;
+        }
+        #status { margin-top: 20px; font-weight: bold; font-size: 1.2rem; }
+    </style>
+    <meta charset="UTF-8">
+    <title>AllergenCam | Prototype</title>
+</head>
+<body>
+
+    <h2>AllergenCam</h2>
+    <form id="uploadForm">
+        <label>Select an allergen:</label><br>
+        <input type="radio" selected id="wheat" name="allergen" value="wheat">
+        <label for="wheat">Wheat / Gluten</label><br>
+        <input type="radio" id="milk" name="allergen" value="milk">
+        <label for="milk">Milk / Dairy</label><br>
+        <input type="radio" id="eggs" name="allergen" value="eggs">
+        <label for="eggs">Eggs</label><br>
+        <input type="radio" id="peanuts" name="allergen" value="peanuts">
+        <label for="peanuts">Peanuts</label><br>
+        <input type="radio" id="treenuts" name="allergen" value="treenuts">
+        <label for="treenuts">Tree Nuts</label><br>
+        <input type="radio" id="soy" name="allergen" value="soy">
+        <label for="soy">Soy</label><br>
+        <input type="radio" id="fish" name="allergen" value="fish">
+        <label for="fish">Fish</label><br>
+        <input type="radio" id="shellfish" name="allergen" value="shellfish">
+        <label for="shellfish">Shellfish</label><br>
+        <input type="radio" id="sesame" name="allergen" value="sesame">
+        <label for="sesame">Sesame</label><br><br>
+
+        <input type="checkbox" required id="terms">
+        <label for="terms">I agree to the terms</label><br><br>
+
+        <input type="checkbox" id="textMode">
+        <label for="textMode">Use text mode instead</label><br><br>
+
+        <div id="imageInput">
+            <label>Upload food label (JPG/PNG):</label><br>
+            <input type="file" id="pic" accept="image/*"><br>
+        </div>
+
+        <div id="textInput" style="display:none;">
+            <label>Paste ingredients text:</label><br>
+            <textarea id="manualText" rows="6" cols="40" placeholder="e.g. Ingredients: wheat flour, milk, eggs..."></textarea><br>
+        </div>
+
+        <input type="submit" id="submitBtn" value="Scan for Wheat / Gluten">
+
+        <br><br>NOTE: THIS IS A PROTOTYPE. NEVER RELY ON IT. WE ARE STILL IN THE EXTREMELY EARLY DEVELOPMENT STAGE.
+    </form>
+
+    <div id="status"></div>
+
+<script>
+    alert("⚠️ NOTE: THIS IS A PROTOTYPE. NEVER RELY ON IT. WE ARE STILL IN THE EXTREMELY EARLY DEVELOPMENT STAGE. BY CLICKING 'OK', YOU UNDERSTAND THIS AND REMEMBER THAT THIS IS THE FIRST VERSION. ⚠️");
+    const allergenKeywords = {
+        wheat:     ["wheat", "gluten", "flour", "barley", "rye", "spelt", "semolina", "bulgur", "farro", "kamut", "triticale", "Bread"],
+        milk:      ["milk", "dairy", "lactose", "butter", "cream", "cheese", "whey", "casein", "lactalbumin", "lactoglobulin"],
+        eggs:      ["egg", "eggs", "albumin", "globulin", "mayonnaise", "meringue", "ovalbumin"],
+        peanuts:   ["peanut", "peanuts", "groundnut", "groundnuts", "arachis"],
+        treenuts:  ["almond", "cashew", "walnut", "pecan", "pistachio", "hazelnut", "macadamia", "brazil nut", "pine nut", "chestnut"],
+        soy:       ["soy", "soya", "tofu", "miso", "tempeh", "edamame", "soybean"],
+        fish:      ["fish", "cod", "salmon", "tuna", "tilapia", "bass", "flounder", "haddock", "mahi", "perch", "pike", "snapper", "trout", "anchovy"],
+        shellfish: ["shellfish", "shrimp", "crab", "lobster", "clam", "oyster", "mussel", "scallop", "crayfish", "prawn"],
+        sesame:    ["sesame", "tahini", "til", "gingelly", "benne"]
+    };
+
+    const allergenLabels = {
+        wheat:     "Wheat / Gluten",
+        milk:      "Milk / Dairy",
+        eggs:      "Eggs",
+        peanuts:   "Peanuts",
+        treenuts:  "Tree Nuts",
+        soy:       "Soy",
+        fish:      "Fish",
+        shellfish: "Shellfish",
+        sesame:    "Sesame"
+    };
+
+    const form = document.getElementById('uploadForm');
+    const statusDiv = document.getElementById('status');
+    const submitBtn = document.getElementById('submitBtn');
+
+    
+    document.getElementById('textMode').addEventListener('change', function() {
+        document.getElementById('imageInput').style.display = this.checked ? 'none' : 'block';
+        document.getElementById('textInput').style.display = this.checked ? 'block' : 'none';
+    });
+
+    // Update button label when allergen selection changes
+    document.querySelectorAll('input[name="allergen"]').forEach(radio => {
+        radio.addEventListener('change', () => {
+            submitBtn.value = `Scan for ${allergenLabels[radio.value]}`;
+        });
+    });
+
+    form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        // Put your API Key Here
+        const API_KEY = '';
+        const selectedAllergen = document.querySelector('input[name="allergen"]:checked').value;
+        const keywords = allergenKeywords[selectedAllergen];
+        const label = allergenLabels[selectedAllergen];
+
+        const isTextMode = document.getElementById('textMode').checked;
+
+        function checkText(text) {
+            text = text.toLowerCase();
+            if (text === "") {
+                statusDiv.innerText = "❓ No allergen found. Try a closer photo.";
+                statusDiv.style.color = "orange";
+            } else {
+                const found = keywords.filter(kw => text.includes(kw.toLowerCase()));
+                if (found.length > 0) {
+                    statusDiv.innerText = `⚠️ WARNING: ${label} detected! (${found.join(", ")})`;
+                    statusDiv.style.color = "red";
+                } else {
+                    statusDiv.innerText = `✅ Safe! No ${label} detected.`;
+                    statusDiv.style.color = "green";
+                }
+            }
+            submitBtn.disabled = false;
+        }
+
+        // TEMP: plain text mode — skips image upload and API call
+        if (isTextMode) {
+            const text = document.getElementById('manualText').value;
+            if (!text.trim()) return alert("Please enter some text.");
+            statusDiv.innerText = "Checking...";
+            submitBtn.disabled = true;
+            checkText(text);
+            return;
+        }
+
+        const fileInput = document.getElementById("pic");
+        const file = fileInput.files[0];
+
+        if (!file) return alert("Please select a file.");
+
+        statusDiv.innerText = "Scanning... please wait.";
+        submitBtn.disabled = true;
+
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+
+        reader.onload = async () => {
+            const base64Image = reader.result.split(',')[1];
+
+            const requestBody = {
+                requests: [{
+                    image: { content: base64Image },
+                    features: [{ type: "DOCUMENT_TEXT_DETECTION" }, { type: "LABEL_DETECTION" }]
+                }]
+            };
+
+            try {
+                const url = `https://vision.googleapis.com/v1/images:annotate?key=${API_KEY}`;
+
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(requestBody)
+                });
+
+                const data = await response.json();
+
+                if (data.error) {
+                    statusDiv.innerText = "API Error: " + data.error.message;
+                    statusDiv.style.color = "red";
+                    submitBtn.disabled = false;
+                } else {
+                    const r = data.responses[0];
+                    const ocrText = r?.fullTextAnnotation?.text || r?.textAnnotations?.[0]?.description || "";
+                    const labelText = (r?.labelAnnotations || []).map(l => l.description).join(" ");
+                    checkText(ocrText + " " + labelText);
+                }
+            } catch (err) {
+                statusDiv.innerText = "Connection failed. Check your internet.";
+                statusDiv.style.color = "red";
+                submitBtn.disabled = false;
+            }
+        };
+    });
+</script>
+</body>
+</html>
