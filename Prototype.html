@@ -111,8 +111,8 @@
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        // Put your API Key Here
-        const API_KEY = '';
+        
+        const API_KEY = 'AIzaSyAbF_SS8lwkAoRzOhHUjhpsF8lKDDMLjjs';
         const selectedAllergen = document.querySelector('input[name="allergen"]:checked').value;
         const keywords = allergenKeywords[selectedAllergen];
         const label = allergenLabels[selectedAllergen];
