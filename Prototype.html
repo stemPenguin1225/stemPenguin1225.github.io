@@ -47,7 +47,7 @@
         <label for="terms">I agree to the terms</label><br><br>
 
         <input type="checkbox" id="textMode">
-        <label for="textMode">Scan ingredients list instead </label><br><br>
+        <label for="textMode">Use text mode instead</label><br><br>
 
         <div id="imageInput">
             <label>Upload food label (JPG/PNG):</label><br>
@@ -55,7 +55,7 @@
         </div>
 
         <div id="textInput" style="display:none;">
-            <label>Paste the ingredient label:</label><br>
+            <label>Paste ingredients text:</label><br>
             <textarea id="manualText" rows="6" cols="40" placeholder="e.g. Ingredients: wheat flour, milk, eggs..."></textarea><br>
         </div>
 
@@ -111,8 +111,8 @@
 
     form.addEventListener('submit', async (e) => {
         e.preventDefault();
-        
-        const API_KEY = 'API_KEY';
+
+        const API_KEY = 'AIzaSyAbF_SS8lwkAoRzOhHUjhpsF8lKDDMLjjs';
         const selectedAllergen = document.querySelector('input[name="allergen"]:checked').value;
         const keywords = allergenKeywords[selectedAllergen];
         const label = allergenLabels[selectedAllergen];
@@ -122,7 +122,7 @@
         function checkText(text) {
             text = text.toLowerCase();
             if (text === "") {
-                statusDiv.innerText = "❓ No allergen found. Try a closer photo.";
+                statusDiv.innerText = "❓ No text found. Try a closer photo.";
                 statusDiv.style.color = "orange";
             } else {
                 const found = keywords.filter(kw => text.includes(kw.toLowerCase()));
