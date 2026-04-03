@@ -3,6 +3,18 @@
             margin: 0;
             font-family: Comfortaa, Arial, Helvetica, sans-serif;
         }
+        .formbox {
+                background-color: white;
+                border: solid 0.5px darkgrey;
+                border-radius: 10px;
+                margin: 50px auto;
+                padding-left: 50px;
+                padding-right: 50px;
+                padding-top: none;
+                box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1), -2px 0 4px rgba(0, 0, 0, 0.1); 
+                max-width: 600px;
+                padding-bottom: 20px;
+            }
 
         /* 2. Topbar Container */
         .topnav {
@@ -45,6 +57,7 @@
             display: flex;
             margin-left: auto;
             gap: 15px;
+            
         }
 
         .nav-links a {
@@ -57,6 +70,19 @@
             border-radius: 10px;
             font-family: Comfortaa;
             transition: background-color 0.3s ease;
+            
+        }
+        .button {
+            background-color: #00aaff;
+            color: black;
+            padding: 14px 25px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            border-radius: 10px;
+            font-family: Comfortaa;
+            transition: background-color 0.3s ease;
+            
         }
 
         .nav-links a:hover {
@@ -80,8 +106,25 @@
             padding: 20px;
             text-align: center;
             box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1), -2px 0 4px rgba(0, 0, 0, 0.1);
+            
         }
-
+        .blogbox {
+            background-color: white;
+            border: solid 0.5px darkgrey;
+            border-radius: 10px;
+            margin: 10px;
+            padding: 20px;
+            box-shadow: 2px 0 4px rgba(0, 0, 0, 0.1), -2px 0 4px rgba(0, 0, 0, 0.1); 
+        }
+        .blogboxheader {
+            color: #00aaff;
+            text-align: center;
+        }
+        .blogboxinfo {
+            color: #ff7700;
+            text-align: left;
+        }
+    
         /* 6. Responsive Rules */
         @media screen and (max-width: 600px) {
             .topnav {
@@ -118,10 +161,6 @@
                 right: 20px;
                 top: 20px; /* Adjust based on logo height */
             }
-            .footer {
-                text-align: center;
-                padding: 3px;
-                background-color: rgb(233, 122, 131);
-                color: white;
-            }
+            
+            
         }
