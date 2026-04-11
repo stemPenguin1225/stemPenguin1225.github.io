@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="favicon.svg" type="image/svg">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AllergenCam | Home</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap" rel="stylesheet">
+    
+    <link rel="stylesheet" href="Style.css">
+</head>
+<body>
+
+<nav class="topnav" id="myTopnav">
+    <div class="logo-container">
+        <a href="index.html">
+            <img src="Longlogo.svg" alt="AllergenCam" width="500">
+        </a>
+    </div>
+    
+    <div class="nav-links" id="navLinks">
+        <a href="index.html">Home</a>
+        <a href="AllergenCamNews.html">News</a>
+        <a href="AllergenCamHowItWorks.html">How it works</a>
+        <a href="AllergenCamNotify.html">Get Updates</a>
+    </div>
+
+    <a href="javascript:void(0);" class="icon" onclick="toggleMenu()">
+        <i class="fas fa-bars"></i>
+    </a>
+</nav>
+
+<main style="padding: 40px 20px; min-height: calc(100vh - 200px);">
+  <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSdrgNpT3pjkqvnj5jJLWfc4CNBZs91Dnll7A-2sVE55rsRrWw/viewform?embedded=true" width="640" height="672" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
+</main>
+
+
+<footer class="footer">
+    <p>© 2026 AllergenCam</p>
+</footer>
+<script>
+    function toggleMenu() {
+        const navLinks = document.getElementById("navLinks");
+        navLinks.classList.toggle("responsive");
+    }
+</script>
+
+</body>
+</html>
